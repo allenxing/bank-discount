@@ -1,0 +1,27 @@
+{
+  "name": "bank-discount",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/allenxing/bank-discount.git"
+  },
+  "keywords": [
+    "discount",
+    "bank"
+  ],
+  "author": "allenxing",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/allenxing/bank-discount/issues"
+  },
+  "homepage": "https://github.com/allenxing/bank-discount#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "mongoose": "^4.7.7"
+  }
+}
