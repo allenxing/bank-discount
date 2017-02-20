@@ -1,10 +1,10 @@
 var express = require('express')
 var app = express()
 var db = require('./db.js')
-app.get('/', function(req, res) {
+app.get('/api/', function(req, res) {
 	res.send('init success')
 });
-app.get('/get', function(req, res) {
+app.get('/api/get', function(req, res) {
 	let {
 		city, bank
 	} = req.query;
