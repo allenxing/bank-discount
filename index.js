@@ -7,7 +7,7 @@ app.get('/api/', (req, res) => {
 });
 app.get('/api/get', (req, res) => {
 	let {
-		city, bank
+		city, bank, p = 1, n = 10
 	} = req.query;
 	if (!city && !bank) {
 		res.send({
@@ -17,12 +17,12 @@ app.get('/api/get', (req, res) => {
 	} else {
 		let query = {}
 		if (city) {
-			query.city = city
+			query.city = new RegExp(city,'i')
 		}
 		if (bank) {
-			query.bank = bank
+			query.bankname = new RegExp(bank,'i')
 		}
-		db.Bank.find(query, (err, doc) => {
+		db.Bank.find(query).skip((p-1)*n).limit(n).exec((err, doc) => {
 			if (!err) {
 				res.send({
 					list: doc
@@ -32,17 +32,19 @@ app.get('/api/get', (req, res) => {
 			}
 		})
 	}
-});
-app.get('/api/getCity', (req, resp) => {
-	let {lat,lng} = req.query
+})
+app.get('/api/getcity', (req, resp) => {
+	let {
+		lat, lng
+	} = req.query
 	let mapurl = 'http://apis.map.qq.com/ws/geocoder/v1/'
 	superagent.get(mapurl)
-	.query({
-		location:`${lat},${lng}`,
-		key : 'W3EBZ-7LZCJ-JURFW-FHSIY-CKBLH-RPF2J'
-	})
-	.end((err, res) => {
-		resp.send(res.body.result.address_component)
-	})
+		.query({
+			location: `${lat},${lng}`,
+			key: 'W3EBZ-7LZCJ-JURFW-FHSIY-CKBLH-RPF2J'
+		})
+		.end((err, res) => {
+			resp.send(res.body.result.address_component)
+		})
 })
-app.listen(3000);
+app.listen(3000)
